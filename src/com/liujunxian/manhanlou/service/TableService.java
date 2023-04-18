@@ -19,4 +19,23 @@ public class TableService {
         String sql = "select id, state from `table`";
         return table.queryMulti(sql, Table.class);
     }
+    
+    /**
+     * 检查餐桌是否为空闲状态
+     * @param ID 餐桌编号
+     * @return 是否为空闲状态
+     */
+    public static boolean isEmpty(int ID) {
+        String sql = "select state from `table` where id = ?";
+        return table.queryScalar(sql, ID).equals("空");
+    }
+    
+    /**
+     * 预定餐桌
+     * @return 是否预定成功
+     */
+    public static boolean book(int ID, String name, String phone) {
+        String sql = "update `table` set state = '预定', order_name = ?, order_phone = ? where id = ?";
+        return table.update(sql, name, phone, ID) > 0;
+    }
 }

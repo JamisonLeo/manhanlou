@@ -55,16 +55,11 @@ public class AppView {
                             key = Utility.readString(1);
                             switch (key) {
                                 case "1":
-                                    List<Table> list = TableService.list();
-                                    System.out.println("==============================");
-                                    System.out.println("\t餐桌号\t\t\t状态");
-                                    for (Table table : list) {
-                                        System.out.println(table);
-                                    }
-                                    System.out.println("==============================");
+                                    tableList();
                                     EnterContinue();
                                     break;
                                 case "2":
+                                    bookTable();
                                     EnterContinue();
                                     break;
                                 case "3":
@@ -103,8 +98,60 @@ public class AppView {
         System.out.println("退出满汉楼系统~");
     }
     
+    /**
+     * 提示“按下 Enter 继续”并监听用户输入
+     */
     private static void EnterContinue() {
         System.out.print("按下 Enter 继续~");
         Utility.readString(20, "继续");
+    }
+    
+    /**
+     * 显示餐桌状态
+     */
+    private static void tableList() {
+        List<Table> list = TableService.list();
+        System.out.println("==============================");
+        System.out.println("\t餐桌号\t\t\t状态");
+        for (Table table : list) {
+            System.out.println(table);
+        }
+        System.out.println("==============================");
+    }
+    
+    private static void bookTable() {
+        System.out.println("==========预定餐桌==========");
+        boolean isLoop = true;
+        while (isLoop) {
+            System.out.print("请选择要预定的餐桌编号(-1退出)：");
+            int key = Utility.readInt();
+            switch (key) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    if (!TableService.isEmpty(key)) {
+                        System.out.println("该餐桌不是空闲餐桌！");
+                        break;
+                    }
+                    System.out.print("预定人姓名：");
+                    String name = Utility.readString(20);
+                    System.out.print("预定人电话：");
+                    String phone = Utility.readString(12);
+                    System.out.print("确认是否预定(Y:确定 | 其他任意键取消)：");
+                    char c = Utility.readChar();
+                    if ('y' == c || 'Y' == c)
+                        System.out.println(TableService.book(key, name, phone) ? "\n---预定成功" : "\n---预定失败");
+                    isLoop = false;
+                    break;
+                case -1:
+                    System.out.print("取消预定\t");
+                    break;
+                default:
+                    System.out.println("请输入正确的餐桌编号！");
+                    break;
+            }
+        }
     }
 }
