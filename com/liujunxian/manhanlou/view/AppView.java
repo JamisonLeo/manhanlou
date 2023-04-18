@@ -1,7 +1,12 @@
 package com.liujunxian.manhanlou.view;
 
-import com.liujunxian.manhanlou.service.Check;
+import com.liujunxian.manhanlou.domain.Employee;
+import com.liujunxian.manhanlou.domain.Table;
+import com.liujunxian.manhanlou.service.EmployeeService;
+import com.liujunxian.manhanlou.service.TableService;
 import com.liujunxian.manhanlou.utils.Utility;
+
+import java.util.List;
 
 public class AppView {
     /**
@@ -33,8 +38,9 @@ public class AppView {
                     String ID = Utility.readString(12);
                     System.out.print("请输入密码：");
                     String password = Utility.readString(18);
-                    if (Check.CheckAccount(ID, password)) {
-                        System.out.println("===============登录成功===============\n");
+                    Employee employee = EmployeeService.getEmployee(ID, password);
+                    if (employee != null) {
+                        System.out.println("===============登录成功" + employee.getName() + "===============\n");
                         EnterContinue();
                         while (loop) {
                             System.out.println("===============满汉楼===============");
@@ -49,6 +55,13 @@ public class AppView {
                             key = Utility.readString(1);
                             switch (key) {
                                 case "1":
+                                    List<Table> list = TableService.list();
+                                    System.out.println("==============================");
+                                    System.out.println("\t餐桌号\t\t\t状态");
+                                    for (Table table : list) {
+                                        System.out.println(table);
+                                    }
+                                    System.out.println("==============================");
                                     EnterContinue();
                                     break;
                                 case "2":

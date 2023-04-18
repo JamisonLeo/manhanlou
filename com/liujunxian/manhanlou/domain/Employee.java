@@ -9,6 +9,13 @@ public class Employee {
     public Employee() {
     }
     
+    public Employee(String empID, String password, String name, String job) {
+        EmpID = empID;
+        Password = password;
+        Name = name;
+        Job = job;
+    }
+    
     public String getEmpID() {
         return EmpID;
     }
