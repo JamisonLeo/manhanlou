@@ -1,8 +1,10 @@
 package com.liujunxian.manhanlou.view;
 
 import com.liujunxian.manhanlou.domain.Employee;
+import com.liujunxian.manhanlou.domain.Menu;
 import com.liujunxian.manhanlou.domain.Table;
 import com.liujunxian.manhanlou.service.EmployeeService;
+import com.liujunxian.manhanlou.service.MenuService;
 import com.liujunxian.manhanlou.service.TableService;
 import com.liujunxian.manhanlou.utils.Utility;
 
@@ -63,6 +65,7 @@ public class AppView {
                                     EnterContinue();
                                     break;
                                 case "3":
+                                    menuList();
                                     EnterContinue();
                                     break;
                                 case "4":
@@ -113,10 +116,22 @@ public class AppView {
         List<Table> list = TableService.list();
         System.out.println("==============================");
         System.out.println("\t餐桌号\t\t\t状态");
+        System.out.println("\t--------------------");
         for (Table table : list) {
             System.out.println(table);
         }
         System.out.println("==============================");
+    }
+    
+    private static void menuList() {
+        List<Menu> list = MenuService.list();
+        System.out.println("============================================================");
+        System.out.println("\t\t菜品编号\t\t菜品名\t\t类别\t\t价格");
+        System.out.println("\t\t------------------------------------------");
+        for (Menu menu : list) {
+            System.out.println(menu);
+        }
+        System.out.println("============================================================");
     }
     
     /**

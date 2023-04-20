@@ -7,7 +7,7 @@ import com.liujunxian.manhanlou.domain.Employee;
  * 完成对Employee表的各种操作
  */
 public class EmployeeService {
-    static EmployeeDAO employeeDAO = new EmployeeDAO();
+    private static final EmployeeDAO employeeDAO = new EmployeeDAO();
     /**
      * 根据提供的形参生成Employee对象
      * @param ID 员工号

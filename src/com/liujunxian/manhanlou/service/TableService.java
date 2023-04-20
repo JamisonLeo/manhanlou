@@ -2,7 +2,6 @@ package com.liujunxian.manhanlou.service;
 
 import com.liujunxian.manhanlou.dao.TableDAO;
 import com.liujunxian.manhanlou.domain.Table;
-import com.liujunxian.manhanlou.utils.Utility;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * 完成对table表的各种操作
  */
 public class TableService {
-    static TableDAO tableDAO = new TableDAO();
+    private static final TableDAO tableDAO = new TableDAO();
     
     /**
      * 查询所有餐桌的信息
