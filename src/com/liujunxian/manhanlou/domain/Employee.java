@@ -1,60 +1,50 @@
 package com.liujunxian.manhanlou.domain;
 
 public class Employee {
-    private String EmpID;
-    private String Password;
-    private String Name;
-    private String Job;
+    private String empID;
+    private String password;
+    private String name;
+    private String job;
     
     public Employee() {
     }
     
     public Employee(String empID, String password, String name, String job) {
-        EmpID = empID;
-        Password = password;
-        Name = name;
-        Job = job;
+        this.empID = empID;
+        this.password = password;
+        this.name = name;
+        this.job = job;
     }
     
     public String getEmpID() {
-        return EmpID;
+        return empID;
     }
     
     public void setEmpID(String empID) {
-        EmpID = empID;
+        this.empID = empID;
     }
     
     public String getPassword() {
-        return Password;
+        return password;
     }
     
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
     
     public String getName() {
-        return Name;
+        return name;
     }
     
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
     
     public String getJob() {
-        return Job;
+        return job;
     }
     
     public void setJob(String job) {
-        Job = job;
-    }
-    
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "EmpID='" + EmpID + '\'' +
-                ", Password='" + Password + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Job='" + Job + '\'' +
-                '}';
+        this.job = job;
     }
 }

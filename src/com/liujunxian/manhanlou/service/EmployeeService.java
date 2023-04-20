@@ -15,7 +15,7 @@ public class EmployeeService {
      * @return Employee对象
      */
     public static Employee getEmployee(String ID, String password) {
-        String sql = "select * from `employee` where emp_id = ? and password = md5(?)";
+        String sql = "select * from `employee` where empID = ? and password = md5(?)";
         return employeeDAO.querySingle(sql, Employee.class, ID, password);
     }
 }

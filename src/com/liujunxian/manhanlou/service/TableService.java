@@ -28,7 +28,7 @@ public class TableService {
      * @return ID对应的餐桌
      */
     public static Table getTable(int ID) {
-        String sql = "select state from `table` where id = ?";
+        String sql = "select * from `table` where id = ?";
         return tableDAO.querySingle(sql, Table.class, ID);
     }
     
@@ -40,7 +40,7 @@ public class TableService {
      * @return 是否预定成功
      */
     public static boolean bookTable(int ID, String name, String phone) {
-        String sql = "update `table` set state = '预定', order_name = ?, order_phone = ? where id = ?";
+        String sql = "update `table` set state = '预定', orderName = ?, orderPhone = ? where id = ?";
         return tableDAO.update(sql, name, phone, ID) > 0;
     }
 }
