@@ -59,7 +59,7 @@ public class AppView {
                                     EnterContinue();
                                     break;
                                 case "2":
-                                    TableService.bookTable();
+                                    bookTable();
                                     EnterContinue();
                                     break;
                                 case "3":
@@ -117,5 +117,39 @@ public class AppView {
             System.out.println(table);
         }
         System.out.println("==============================");
+    }
+    
+    /**
+     * 预定餐桌界面
+     */
+    private static void bookTable() {
+        System.out.println("==========预定餐桌==========");
+        while (true) {
+            System.out.println("请选择要预定的餐桌编号(-1退出)：");
+            int tableID = Utility.readInt();
+            if (tableID == -1) {
+                System.out.println("取消预定\t\t");
+                break;
+            }
+            Table table = TableService.getTable(tableID);
+            if (table == null)
+                System.out.println("该餐桌不存在！");
+            else if (!"空".equals(table.getState()))
+                System.out.println("该餐桌不是空闲餐桌！");
+            else {
+                System.out.print("预定人姓名：");
+                String name = Utility.readString(20);
+                System.out.print("预定人电话：");
+                String phone = Utility.readString(12);
+                System.out.print("确认是否预定(Y:确定 | 其他任意键取消)：");
+                char c = Utility.readChar();
+                if ('y' == c || 'Y' == c) {
+                    System.out.print(TableService.bookTable(tableID, name, phone) ? "\n---预定成功\t\t" : "\n---预定失败\t\t");
+                    break;
+                }
+                System.out.print("取消预定\t\t");
+                break;
+            }
+        }
     }
 }
