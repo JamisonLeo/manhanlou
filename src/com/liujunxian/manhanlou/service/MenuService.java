@@ -15,12 +15,13 @@ public class MenuService {
      * @return 所有菜品信息
      */
     public static List<Menu> list() {
-        String sql ="select * from `menu`";
+        String sql = "select * from `menu`";
         return menuDAO.queryMulti(sql, Menu.class);
     }
     
     /**
      * 根据ID获取对应的菜品信息
+     *
      * @param ID 菜品ID
      * @return Menu对象
      */
@@ -31,6 +32,7 @@ public class MenuService {
     
     /**
      * 根据菜名获取对应的菜品信息
+     *
      * @param name 菜品名
      * @return Menu对象
      */

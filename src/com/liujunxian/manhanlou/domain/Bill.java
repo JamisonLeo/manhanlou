@@ -3,7 +3,7 @@ package com.liujunxian.manhanlou.domain;
 import java.time.LocalDateTime;
 
 public class Bill {
-    private Integer ID;
+    private String ID;
     private Integer menuID;
     private Integer num;
     private double price;
@@ -14,7 +14,7 @@ public class Bill {
     public Bill() {
     }
     
-    public Bill(Integer ID, Integer menuID, Integer num, double price, Integer tableID, LocalDateTime date, String state) {
+    public Bill(String ID, Integer menuID, Integer num, double price, Integer tableID, LocalDateTime date, String state) {
         this.ID = ID;
         this.menuID = menuID;
         this.num = num;
@@ -24,11 +24,11 @@ public class Bill {
         this.state = state;
     }
     
-    public Integer getID() {
+    public String getID() {
         return ID;
     }
     
-    public void setID(Integer ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
     
@@ -78,5 +78,10 @@ public class Bill {
     
     public void setState(String state) {
         this.state = state;
+    }
+    
+    @Override
+    public String toString() {
+        return " " + tableID + "\t\t" + date + "\t\t  " + menuID + "\t\t " + num + "\t\t" + price + "\t" + state;
     }
 }

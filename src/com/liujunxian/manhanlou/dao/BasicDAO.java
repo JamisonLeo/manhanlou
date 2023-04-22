@@ -18,7 +18,8 @@ public class BasicDAO<T> {
     
     /**
      * 对数据表进行增、删、改
-     * @param sql 要执行的sql语句
+     *
+     * @param sql   要执行的sql语句
      * @param param 传入要执行的sql语句中的参数
      * @return 受影响的行数
      */
@@ -40,7 +41,8 @@ public class BasicDAO<T> {
     
     /**
      * 查询多列数据
-     * @param sql 要执行的sql语句
+     *
+     * @param sql   要执行的sql语句
      * @param clazz 要生成的ArrayList对象中的类型
      * @param param 传入要执行的sql语句中的参数
      * @return 查询到的数据生成的ArrayList对象
@@ -63,7 +65,8 @@ public class BasicDAO<T> {
     
     /**
      * 查询单行数据
-     * @param sql 要执行的sql数据
+     *
+     * @param sql   要执行的sql数据
      * @param clazz 要返回的数据类型
      * @param param 传入要执行的sql语句中的参数
      * @return 查询到的单行数据对应的domain对象
@@ -86,7 +89,8 @@ public class BasicDAO<T> {
     
     /**
      * 查询单行单列数据
-     * @param sql 要执行的sql语句
+     *
+     * @param sql   要执行的sql语句
      * @param param 传入要执行的sql语句中的参数
      * @return 查询到的值
      */

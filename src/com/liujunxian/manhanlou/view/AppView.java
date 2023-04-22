@@ -1,5 +1,6 @@
 package com.liujunxian.manhanlou.view;
 
+import com.liujunxian.manhanlou.domain.Bill;
 import com.liujunxian.manhanlou.domain.Employee;
 import com.liujunxian.manhanlou.domain.Menu;
 import com.liujunxian.manhanlou.domain.Table;
@@ -70,6 +71,7 @@ public class AppView {
                                     EnterContinue();
                                     break;
                                 case "5":
+                                    billList();
                                     EnterContinue();
                                     break;
                                 case "6":
@@ -114,13 +116,16 @@ public class AppView {
         List<Table> list = TableService.list();
         System.out.println("==============================");
         System.out.println("\t餐桌号\t\t\t状态");
-        System.out.println("\t--------------------");
+        System.out.println("\t----------------------");
         for (Table table : list) {
             System.out.println(table);
         }
         System.out.println("==============================");
     }
     
+    /**
+     * 显示菜品信息
+     */
     private static void menuList() {
         List<Menu> list = MenuService.list();
         System.out.println("============================================================");
@@ -130,6 +135,20 @@ public class AppView {
             System.out.println(menu);
         }
         System.out.println("============================================================");
+    }
+    
+    /**
+     * 显示账单
+     */
+    private static void billList() {
+        List<Bill> list = BillService.list();
+        System.out.println("===============================================================");
+        System.out.println("桌号\t\t日期\t\t\t\t\t菜品号\t数量\t\t价格\t账单状态");
+        System.out.println("---------------------------------------------------------------");
+        for (Bill bill : list) {
+            System.out.println(bill);
+        }
+        System.out.println("===============================================================");
     }
     
     /**
@@ -147,7 +166,7 @@ public class AppView {
             Table table = TableService.getTable(tableID);
             if (table == null)
                 System.out.println("该餐桌不存在！");
-            else if (!("空".equals(table.getState())))
+            else if (!("空闲".equals(table.getState())))
                 System.out.println("该餐桌不是空闲餐桌！");
             else {
                 System.out.print("预定人姓名：");
@@ -177,7 +196,7 @@ public class AppView {
             if (tableID == -1) break;
             Table table = TableService.getTable(tableID);
             if (!("空".equals(table.getState()))) {
-                if ("预定".equals(table.getState())) {
+                if ("已预定".equals(table.getState())) {
                     System.out.print("请输入预定人手机号码：");
                     String orderPhone = Utility.readString(12);
                     if (!(orderPhone.equals(table.getOrderPhone()))) {
@@ -202,9 +221,9 @@ public class AppView {
             char c = Utility.readChar();
             if ('y' == c || 'Y' == c) {
                 if (good instanceof Integer)
-                    BillService.order(tableID, (int) good, goodNum);
+                    BillService.order(table, tableID, (int) good, goodNum);
                 if (good instanceof String)
-                    BillService.order(tableID, (String) good, goodNum);
+                    BillService.order(table, tableID, (String) good, goodNum);
                 System.out.print("\n---点餐成功\t\t");
                 System.out.print("是否继续点餐(Y:继续 | 其他任意键结束点餐)：");
                 char c1 = Utility.readChar();

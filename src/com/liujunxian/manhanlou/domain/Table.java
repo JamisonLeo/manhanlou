@@ -50,6 +50,6 @@ public class Table {
     
     @Override
     public String toString() {
-        return "\t  " + ID + "\t\t\t\t " + state;
+        return "\t  " + ID + "\t\t\t\t" + state;
     }
 }

@@ -34,13 +34,28 @@ public class TableService {
     
     /**
      * 预定餐桌
-     * @param ID 餐桌编号
-     * @param name 预定人姓名
+     *
+     * @param ID    餐桌编号
+     * @param name  预定人姓名
      * @param phone 预定人电话
      * @return 是否预定成功
      */
     public static boolean bookTable(int ID, String name, String phone) {
-        String sql = "update `table` set state = '预定', orderName = ?, orderPhone = ? where id = ?";
+        String sql = "update `table` set state = '已预定', orderName = ?, orderPhone = ? where id = ?";
         return tableDAO.update(sql, name, phone, ID) > 0;
+    }
+    
+    /**
+     * 更新餐桌状态
+     *
+     * @param tableID 餐桌号
+     * @param state   更新的状态
+     */
+    public static void updateTableState(Table table, Integer tableID, String state) {
+        if (table.getState().equals("已预定")) {
+            tableDAO.update("update `table` set orderName = null, orderPhone = null");
+        }
+        String sql = "update `table` set state = ? where id = ?";
+        tableDAO.update(sql, state, tableID);
     }
 }
