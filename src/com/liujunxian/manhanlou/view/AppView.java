@@ -75,6 +75,7 @@ public class AppView {
                                     EnterContinue();
                                     break;
                                 case "6":
+                                    pay();
                                     EnterContinue();
                                     break;
                                 case "9":
@@ -141,7 +142,21 @@ public class AppView {
      * 显示账单
      */
     private static void billList() {
-        List<Bill> list = BillService.list();
+        System.out.println("==========显示账单==========");
+        List<Bill> list;
+        while (true) {
+            System.out.print("显示未结账账单还是往期账单(1. 未结账 | 2. 往期)：");
+            int changeBill = Utility.readInt();
+            if (changeBill == 1) {
+                list = BillService.unfinishedList();
+                break;
+            } else if (changeBill == 2) {
+                list = BillService.finishedList();
+                break;
+            }
+            System.out.println("请输入正确的选择！");
+            EnterContinue();
+        }
         System.out.println("===============================================================");
         System.out.println("桌号\t\t日期\t\t\t\t\t菜品号\t数量\t\t价格\t账单状态");
         System.out.println("---------------------------------------------------------------");
@@ -232,6 +247,38 @@ public class AppView {
             }
             System.out.print("取消预定\t\t");
             break;
+        }
+    }
+    
+    /**
+     * 结账界面
+     */
+    private static void pay() {
+        System.out.println("==========结账==========");
+        while (true) {
+            System.out.print("输入要结账的餐桌号(-1退出)：");
+            int tableID = Utility.readInt();
+            Table table = TableService.getTable(tableID);
+            if (table == null) {
+                System.out.println("该餐桌不存在！");
+            } else if (!("用餐中".equals(table.getState()))) {
+                System.out.println("该餐桌无账单产生，请选择正确的餐桌号！");
+            } else if (tableID == -1) {
+                System.out.println("取消结账~");
+                EnterContinue();
+                break;
+            } else {
+                System.out.print("结账的方式(现金/支付宝/微信)：");
+                String payWay = Utility.readString(10);
+                System.out.print("确认是否结账(Y：确认 | 其他任意键取消)：");
+                char c = Utility.readChar();
+                if (!('y' == c || 'Y' == c)) {
+                    break;
+                }
+                BillService.pay(tableID, payWay);
+                System.out.print("结账完成~\t\t");
+                break;
+            }
         }
     }
 }

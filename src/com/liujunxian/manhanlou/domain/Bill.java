@@ -3,7 +3,7 @@ package com.liujunxian.manhanlou.domain;
 import java.time.LocalDateTime;
 
 public class Bill {
-    private String ID;
+    private String  ID;
     private Integer menuID;
     private Integer num;
     private double price;

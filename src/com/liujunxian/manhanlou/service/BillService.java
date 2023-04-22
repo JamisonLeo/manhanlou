@@ -42,12 +42,28 @@ public class BillService {
     }
     
     /**
-     * 查询所有账单
+     * 查询所有未结账账单
      *
-     * @return 以List实例返回所有账单信息
+     * @return 以List实例返回所有未结账账单信息
      */
-    public static List<Bill> list() {
-        String sql = "select * from `bill`";
+    public static List<Bill> unfinishedList() {
+        String sql = "select * from `bill` where state = '未支付'";
         return billDAO.queryMulti(sql, Bill.class);
+    }
+    
+    /**
+     * 查询所有往期账单
+     *
+     * @return 以List实例返回所有往期账单信息
+     */
+    public static List<Bill> finishedList() {
+        String sql = "select * from `bill` where state != '未支付'";
+        return billDAO.queryMulti(sql, Bill.class);
+    }
+    
+    public static void pay(Integer tableID, String way) {
+        TableService.updateTableState(tableID, "空闲");
+        String sql = "update `bill` set state = ? where id = ?";
+        billDAO.update(sql, way, tableID);
     }
 }

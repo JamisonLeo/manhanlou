@@ -58,4 +58,15 @@ public class TableService {
         String sql = "update `table` set state = ? where id = ?";
         tableDAO.update(sql, state, tableID);
     }
+    
+    /**
+     * 更新餐桌状态
+     *
+     * @param tableID 餐桌号
+     * @param state   更新的状态
+     */
+    public static void updateTableState(Integer tableID, String state) {
+        String sql = "update `table` set state = ? where id = ?";
+        tableDAO.update(sql, state, tableID);
+    }
 }
