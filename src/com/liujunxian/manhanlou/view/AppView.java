@@ -1,9 +1,6 @@
 package com.liujunxian.manhanlou.view;
 
-import com.liujunxian.manhanlou.domain.Bill;
-import com.liujunxian.manhanlou.domain.Employee;
-import com.liujunxian.manhanlou.domain.Menu;
-import com.liujunxian.manhanlou.domain.Table;
+import com.liujunxian.manhanlou.domain.*;
 import com.liujunxian.manhanlou.service.BillService;
 import com.liujunxian.manhanlou.service.EmployeeService;
 import com.liujunxian.manhanlou.service.MenuService;
@@ -143,27 +140,27 @@ public class AppView {
      */
     private static void billList() {
         System.out.println("==========显示账单==========");
-        List<Bill> list;
+        List<Multi> list;
         while (true) {
             System.out.print("显示未结账账单还是往期账单(1. 未结账 | 2. 往期)：");
             int changeBill = Utility.readInt();
             if (changeBill == 1) {
-                list = BillService.unfinishedList();
+                list = BillService.unfinishedList2();
                 break;
             } else if (changeBill == 2) {
-                list = BillService.finishedList();
+                list = BillService.finishedList2();
                 break;
             }
             System.out.println("请输入正确的选择！");
             EnterContinue();
         }
-        System.out.println("===============================================================");
-        System.out.println("桌号\t\t日期\t\t\t\t\t菜品号\t数量\t\t价格\t账单状态");
-        System.out.println("---------------------------------------------------------------");
-        for (Bill bill : list) {
+        System.out.println("====================================================================");
+        System.out.println("桌号\t\t日期\t\t\t\t\t菜品名\t\t数量\t价格\t\t账单状态");
+        System.out.println("--------------------------------------------------------------------");
+        for (Multi bill : list) {
             System.out.println(bill);
         }
-        System.out.println("===============================================================");
+        System.out.println("====================================================================");
     }
     
     /**
@@ -258,15 +255,12 @@ public class AppView {
         while (true) {
             System.out.print("输入要结账的餐桌号(-1退出)：");
             int tableID = Utility.readInt();
+            if (tableID == -1) break;
             Table table = TableService.getTable(tableID);
             if (table == null) {
                 System.out.println("该餐桌不存在！");
             } else if (!("用餐中".equals(table.getState()))) {
                 System.out.println("该餐桌无账单产生，请选择正确的餐桌号！");
-            } else if (tableID == -1) {
-                System.out.println("取消结账~");
-                EnterContinue();
-                break;
             } else {
                 System.out.print("结账的方式(现金/支付宝/微信)：");
                 String payWay = Utility.readString(10);
